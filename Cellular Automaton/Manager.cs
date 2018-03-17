@@ -2,17 +2,27 @@
 
 namespace Cellular_Automaton{
     public class Manager{
-        public static void Main(string[] args){
-            int a=1;
-            char b='n';
-            String r = "qwertyu";
-            Wolfram wolfram = new Wolfram(3000,200);
-            Wolfram wolfram2 = new Wolfram(2000,100);
-            wolfram.set_cell(0,100);
-            //wolfram.set_cell(1,99);
-            //wolfram.set_cell(1,101);
-            wolfram.rule_161();
-            wolfram.draw(); 
+        public static void Main(string[] args){ 
+            Grid grid = new Grid(100, 100);
+            /*grid.SetSell(1,3,true);
+            grid.SetSell(2,1,true);
+            grid.SetSell(2,3,true);
+            grid.SetSell(3,2,true);
+            grid.SetSell(3,3,true);*/  //glider
+                Random random = new Random();
+                for (int i = 0; i < 100; i++){
+                    for (int j = 0; j < 100; j++){
+                        //Console.WriteLine(random.Next(0,2));
+                        grid.SetSell(i,j,random.Next(0,2)==1);
+                    }
+                }
+            grid.Draw();            
+            //Console.ReadKey();
+//            grid.SetSell(2,4,true);
+//            grid.SetSell(3,4,true);
+//            grid.SetSell(4,4,true);  //stick
+            Life life = new Life(grid);
+            life.Run();
         }
     }
 }
