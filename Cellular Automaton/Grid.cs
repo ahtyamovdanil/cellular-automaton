@@ -55,16 +55,14 @@ namespace Cellular_Automaton{
             return count;
         }
         
-        public void Draw(){
-            char symbol = (char) 218;
-            Console.SetWindowPosition(0,0);   // sets window position to upper left
-            Console.SetBufferSize(400,800);   // make sure buffer is bigger than window
-            //Console.SetWindowSize(450,140);   //set window size to almost full screen 
+        public void Draw(int delay){
+            Console.SetWindowPosition(0,0);  
+            Console.SetBufferSize(800,800);   
             for (int i = 0; i < height; i++){
                 for (int j = 0; j < width; j++){
-                    if (matrix[i, j]) Console.Write("{0} ", 'X');
+                    if (matrix[i, j]) Console.Write("{0} ", '\u25A0');
                     else Console.Write("{0} ", " ");
-                    //System.Threading.Thread.Sleep(1);   //set delay for each cell drawing
+                    System.Threading.Thread.Sleep(delay);   //set delay for each cell drawing
                 }         
                 Console.WriteLine();
             }
@@ -103,13 +101,25 @@ namespace Cellular_Automaton{
 
         public void SetRandom(){
             Random random = new Random();
-            for (int i = 0; i < height; i++){
-                for (int j = 0; j < width; j++){
-                    //Console.WriteLine(random.Next(0,2));
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
                     SetSell(i,j,random.Next(0,2)==1);
                 }
             }
         }
+
+        public void Clean(){
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    SetSell(i, j, false);
+                }
+            }
+        }
+
         public object Clone(){
             Grid grid = new Grid(height, width);
             grid.matrix = (bool[,])matrix.Clone();

@@ -3,15 +3,6 @@
 namespace Cellular_Automaton{
     public class Wolfram{
         
-        //private int grid.Height;
-        //private int grid.Width;
-        //private bool[,] grid.Matrix;
-        //private Grid grid;
-        
-        public Wolfram(){
-            //grid = grid;
-        }
-
         public void SetRule30(Grid grid){
             int t1, t2;
             for (int i = 1; i < grid.Height; i++){               

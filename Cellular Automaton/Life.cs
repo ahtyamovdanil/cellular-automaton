@@ -25,13 +25,15 @@ namespace Cellular_Automaton{
             _gridLast.SetSell(x, y, value);
         }
 
-        public void Run(){
+        public void Run(int delay){
             int stage = 0;
             while (true){
                 stage++;
                 _gridCurrent = (Grid)_gridLast.Clone();
-                for (int i = 0; i < _gridLast.Height; i++){
-                    for (int j = 0; j < _gridLast.Width; j++){
+                for (int i = 0; i < _gridLast.Height; i++)
+                {
+                    for (int j = 0; j < _gridLast.Width; j++)
+                    {
                         if (!_gridLast.Matrix[i, j] && _gridLast.NeighborsCount(i, j) == 3)
                             _gridCurrent.SetSell(i, j, true);
                         if (_gridLast.Matrix[i, j] &&
@@ -41,9 +43,35 @@ namespace Cellular_Automaton{
                     }
                 }
                 Console.SetCursorPosition(0, 0);
-                 _gridCurrent.Draw();
+                 _gridCurrent.Draw(delay);
                 Console.WriteLine("stage: "+stage);
                 _gridLast = _gridCurrent;                
+            }
+        }
+
+        public void Run(int delay, int stages_count){
+            int stage = 0;
+            for (int k = 0; k < stages_count; k++)
+            {
+                stage++;
+                _gridCurrent = (Grid)_gridLast.Clone();
+                for (int i = 0; i < _gridLast.Height; i++)
+                {
+                    for (int j = 0; j < _gridLast.Width; j++)
+                    {
+                        if (!_gridLast.Matrix[i, j] && _gridLast.NeighborsCount(i, j) == 3)
+                            _gridCurrent.SetSell(i, j, true);
+                        if (_gridLast.Matrix[i, j] &&
+                            (_gridLast.NeighborsCount(i, j) < 2 || _gridLast.NeighborsCount(i, j) > 3))
+                        {
+                            _gridCurrent.SetSell(i, j, false);
+                        }
+                    }
+                }
+                Console.SetCursorPosition(0, 0);
+                _gridCurrent.Draw(delay);
+                Console.WriteLine("stage: " + stage + " of " + stages_count);
+                _gridLast = _gridCurrent;
             }
         }
     }
