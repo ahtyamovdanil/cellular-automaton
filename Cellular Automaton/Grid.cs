@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace Cellular_Automaton{
     public class Grid : ICloneable{
@@ -55,8 +56,9 @@ namespace Cellular_Automaton{
         }
         
         public void Draw(){
+            char symbol = (char) 218;
             Console.SetWindowPosition(0,0);   // sets window position to upper left
-            Console.SetBufferSize(450,1000);   // make sure buffer is bigger than window
+            Console.SetBufferSize(400,800);   // make sure buffer is bigger than window
             //Console.SetWindowSize(450,140);   //set window size to almost full screen 
             for (int i = 0; i < height; i++){
                 for (int j = 0; j < width; j++){
@@ -66,13 +68,54 @@ namespace Cellular_Automaton{
                 }         
                 Console.WriteLine();
             }
-            //Console.ReadKey();
         }
 
+        public void SetShape(String shape, int x, int y){
+            switch (shape){
+                case "glider":
+                    SetSell(x, y + 2, true);
+                    SetSell(x + 1, y, true);
+                    SetSell(x + 1, y + 2, true);
+                    SetSell(x + 2, y + 1, true);
+                    SetSell(x + 2, y + 2, true);
+                    break;
+                case "LWSS": //lightweight spaceship
+                    SetSell(x, y + 1, true);
+                    SetSell(x, y + 4, true);
+                    SetSell(x + 1, y, true);
+                    SetSell(x + 2, y, true);
+                    SetSell(x + 2, y + 4, true);
+                    SetSell(x + 3, y, true);
+                    SetSell(x + 3, y + 1, true);
+                    SetSell(x + 3, y + 2, true);
+                    SetSell(x + 3, y + 3, true);
+                    break;
+                case "toad":
+                    SetSell(x + 1, y + 1, true);
+                    SetSell(x + 1, y + 2, true);
+                    SetSell(x + 1, y + 3, true);
+                    SetSell(x + 2, y, true);
+                    SetSell(x + 2, y + 1, true);
+                    SetSell(x + 2, y + 2, true);
+                    break;
+            }
+        }
+
+        public void SetRandom(){
+            Random random = new Random();
+            for (int i = 0; i < height; i++){
+                for (int j = 0; j < width; j++){
+                    //Console.WriteLine(random.Next(0,2));
+                    SetSell(i,j,random.Next(0,2)==1);
+                }
+            }
+        }
         public object Clone(){
             Grid grid = new Grid(height, width);
             grid.matrix = (bool[,])matrix.Clone();
             return grid;
         }
-    }
+  }    
 }
+
+

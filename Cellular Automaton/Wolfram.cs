@@ -6,26 +6,21 @@ namespace Cellular_Automaton{
         //private int grid.Height;
         //private int grid.Width;
         //private bool[,] grid.Matrix;
-        private Grid _grid;
+        //private Grid grid;
         
-        public Wolfram(Grid grid){
-            this._grid = grid;
+        public Wolfram(){
+            //grid = grid;
         }
 
-        public Grid Grid{
-            get { return _grid; }
-            set { _grid = value; }
-        }
-
-        public void SetRule30(){
+        public void SetRule30(Grid grid){
             int t1, t2;
-            for (int i = 1; i < _grid.Height; i++){               
-                for (int j = 0; j < _grid.Width; j++){
+            for (int i = 1; i < grid.Height; i++){               
+                for (int j = 0; j < grid.Width; j++){
                     if (j == 0){
-                        t1 = _grid.Width - 1;
+                        t1 = grid.Width - 1;
                         t2 = j + 1;
                     } else 
-                    if (j == _grid.Width - 1){
+                    if (j == grid.Width - 1){
                         t1 = j - 1;
                         t2 = 0;
                     }
@@ -33,24 +28,24 @@ namespace Cellular_Automaton{
                         t1 = j - 1;
                         t2 = j + 1;
                     }
-            if (((_grid.Matrix[i - 1, t1]) && !(_grid.Matrix[i - 1, j]) && !(_grid.Matrix[i - 1, t2])) ||
-                (!(_grid.Matrix[i - 1, t1]) && (_grid.Matrix[i - 1, j]) && (_grid.Matrix[i - 1, t2])) ||
-                (!(_grid.Matrix[i - 1, t1]) && (_grid.Matrix[i - 1, j]) && !(_grid.Matrix[i - 1, t2])) ||
-                (!(_grid.Matrix[i - 1, t1]) && !(_grid.Matrix[i - 1, j]) && (_grid.Matrix[i - 1, t2])) 
-            ) _grid.Matrix[i, j] = true;
+            if (((grid.Matrix[i - 1, t1]) && !(grid.Matrix[i - 1, j]) && !(grid.Matrix[i - 1, t2])) ||
+                (!(grid.Matrix[i - 1, t1]) && (grid.Matrix[i - 1, j]) && (grid.Matrix[i - 1, t2])) ||
+                (!(grid.Matrix[i - 1, t1]) && (grid.Matrix[i - 1, j]) && !(grid.Matrix[i - 1, t2])) ||
+                (!(grid.Matrix[i - 1, t1]) && !(grid.Matrix[i - 1, j]) && (grid.Matrix[i - 1, t2])) 
+            ) grid.Matrix[i, j] = true;
                 }         
             }
         }
         
-        public void SetRule110(){
+        public void SetRule110(Grid grid){
             int t1, t2;
-            for (int i = 1; i < _grid.Height; i++){               
-                    for (int j = 0; j < _grid.Width; j++){
+            for (int i = 1; i < grid.Height; i++){               
+                    for (int j = 0; j < grid.Width; j++){
                     if (j == 0){
-                        t1 = _grid.Width - 1;
+                        t1 = grid.Width - 1;
                         t2 = j + 1;
                     } else 
-                    if (j == _grid.Width - 1){
+                    if (j == grid.Width - 1){
                         t1 = j - 1;
                         t2 = 0;
                     }
@@ -58,25 +53,25 @@ namespace Cellular_Automaton{
                         t1 = j - 1;
                         t2 = j + 1;
                     }
-                    if (((_grid.Matrix[i - 1, t1]) && (_grid.Matrix[i - 1, j]) && !(_grid.Matrix[i - 1, t2])) ||
-                        ((_grid.Matrix[i - 1, t1]) && !(_grid.Matrix[i - 1, j]) && (_grid.Matrix[i - 1, t2])) ||
-                        (!(_grid.Matrix[i - 1, t1]) && (_grid.Matrix[i - 1, j]) && (_grid.Matrix[i - 1, t2])) ||
-                        (!(_grid.Matrix[i - 1, t1]) && (_grid.Matrix[i - 1, j]) && !(_grid.Matrix[i - 1, t2])) ||
-                        (!(_grid.Matrix[i - 1, t1]) && !(_grid.Matrix[i - 1, j]) && (_grid.Matrix[i - 1, t2]))
-                    ) _grid.Matrix[i, j] = true;
+                    if ((grid.Matrix[i - 1, t1]) && (grid.Matrix[i - 1, j]) && !(grid.Matrix[i - 1, t2]) ||
+                        (grid.Matrix[i - 1, t1]) && !(grid.Matrix[i - 1, j]) && (grid.Matrix[i - 1, t2]) ||
+                        !(grid.Matrix[i - 1, t1]) && (grid.Matrix[i - 1, j]) && (grid.Matrix[i - 1, t2]) ||
+                        !(grid.Matrix[i - 1, t1]) && (grid.Matrix[i - 1, j]) && !(grid.Matrix[i - 1, t2]) ||
+                        !(grid.Matrix[i - 1, t1]) && !(grid.Matrix[i - 1, j]) && (grid.Matrix[i - 1, t2])
+                    ) grid.Matrix[i, j] = true;
                 }         
             }
         }
         
-        public void SetRule161(){
+        public void SetRule161(Grid grid){
             int t1, t2;
-            for (int i = 1; i < _grid.Height; i++){
-                for (int j = 0; j < _grid.Width; j++){
+            for (int i = 1; i < grid.Height; i++){
+                for (int j = 0; j < grid.Width; j++){
                     if (j == 0){
-                        t1 = _grid.Width - 1;
+                        t1 = grid.Width - 1;
                         t2 = j + 1;
                     } else 
-                    if (j == _grid.Width - 1){
+                    if (j == grid.Width - 1){
                         t1 = j - 1;
                         t2 = 0;
                     }
@@ -85,10 +80,10 @@ namespace Cellular_Automaton{
                         t2 = j + 1;
                     }
 
-                    if (((_grid.Matrix[i - 1, t1]) && (_grid.Matrix[i - 1, j]) && (_grid.Matrix[i - 1, t2])) ||
-                        ((_grid.Matrix[i - 1, t1]) && !(_grid.Matrix[i - 1, j]) && (_grid.Matrix[i - 1, t2])) ||
-                        (!(_grid.Matrix[i - 1, t1]) && !(_grid.Matrix[i - 1, j]) && !(_grid.Matrix[i - 1, t2]))
-                    ) _grid.Matrix[i, j] = true;
+                    if ((grid.Matrix[i - 1, t1]) && (grid.Matrix[i - 1, j]) && (grid.Matrix[i - 1, t2]) ||
+                        (grid.Matrix[i - 1, t1]) && !(grid.Matrix[i - 1, j]) && (grid.Matrix[i - 1, t2]) ||
+                        (!(grid.Matrix[i - 1, t1]) && !(grid.Matrix[i - 1, j]) && !grid.Matrix[i - 1, t2])
+                    ) grid.Matrix[i, j] = true;
                 }         
             }
         }
